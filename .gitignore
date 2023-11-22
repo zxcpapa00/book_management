@@ -1,0 +1,12 @@
+.idea
+manage.py
+templates
+
+book_management/__pycache__
+
+book/__pycache__
+book/migrations
+
+accounts/__pycache__
+accounts/migrations
+
