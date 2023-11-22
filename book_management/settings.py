@@ -1,21 +1,18 @@
 from pathlib import Path
+import os
+from dotenv import load_dotenv
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+load_dotenv()
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
+SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-%%kx^*w(l2&jgu23+vscf#n6k&q+0d6ax3%w+k1$8i1g4r6_yc'
+DEBUG = str(os.getenv('DEBUG'))
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = str(os.getenv('ALLOWED_HOSTS')).split()
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -65,22 +62,18 @@ TEMPLATES = [
 WSGI_APPLICATION = 'book_management.wsgi.application'
 
 # Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'book_db',
-        'USER': 'root',
-        'PASSWORD': 'admin',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'NAME': str(os.getenv('NAME_DB')),
+        'USER': str(os.getenv('USER_DB')),
+        'PASSWORD': str(os.getenv('PASSWORD_DB')),
+        'HOST': str(os.getenv('HOST_DB')),
+        'PORT': int(os.getenv('PORT_DB')),
     }
 }
 
 # Password validation
-# https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -97,8 +90,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Internationalization
-# https://docs.djangoproject.com/en/4.2/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -108,22 +99,22 @@ USE_I18N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
-
 STATIC_URL = 'static/'
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Auth
 AUTH_USER_MODEL = 'accounts.User'
 
+# Smtp settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-EMAIL_USE_SSL = True
-EMAIL_HOST = "smtp.yandex.ru"
-EMAIL_HOST_USER = "krasnoperoveg2001@yandex.ru"
-EMAIL_HOST_PASSWORD = "nvpsrxteeoccczij"
-EMAIL_PORT = 465
+EMAIL_USE_SSL = str(os.getenv('EMAIL_USE_SSL'))
+EMAIL_HOST = str(os.getenv('EMAIL_HOST'))
+EMAIL_HOST_USER = str(os.getenv('EMAIL_HOST_USER'))
+EMAIL_HOST_PASSWORD = str(os.getenv('EMAIL_HOST_PASSWORD'))
+EMAIL_PORT = str(os.getenv('EMAIL_PORT'))
 
-CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
+# Celery settings
+CELERY_BROKER_URL = str(os.getenv('CELERY_BROKER_URL'))
