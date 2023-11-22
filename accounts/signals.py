@@ -6,6 +6,7 @@ from .tasks import send_welcome_email
 
 @receiver(signal=post_save, sender=User)
 def send_email(sender, instance, created, **kwargs):
+    """При создании пользователя отправляет письмо"""
     if created:
         send_welcome_email.delay(instance.pk)
 

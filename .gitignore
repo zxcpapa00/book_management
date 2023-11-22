@@ -1,6 +1,7 @@
 .idea
 manage.py
 templates
+.env
 
 book_management/__pycache__
 

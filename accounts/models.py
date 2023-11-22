@@ -5,6 +5,7 @@ from django.utils import timezone
 
 
 class User(AbstractUser):
+    """Модель пользователя"""
     username_validator = UnicodeUsernameValidator()
 
     first_name = models.CharField('Имя', max_length=128)
