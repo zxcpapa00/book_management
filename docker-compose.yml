@@ -1,0 +1,47 @@
+services:
+  db:
+    image: mysql:8.0
+    restart: always
+    env_file: ./.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=${SQL_ROOT_PASSWORD}
+      - MYSQL_USER=${SQL_USER}
+      - MYSQL_PASSWORD=${SQL_PASSWORD}
+      - MYSQL_DATABASE=${SQL_DATABASE}
+    ports:
+      - "3306:3306"
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    command: >
+      sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+
+    env_file: ./.env
+
+    depends_on:
+      - db
+    links:
+      - db
+
+  redis:
+    image: redis:7.0.5-alpine
+    restart: always
+
+
+  worker:
+    build:
+      context: .
+    command: celery -A book_management worker --loglevel=info
+    volumes:
+      - .:/book_management
+    links:
+      - redis
+    depends_on:
+      - redis
+      - db
+    env_file: ./.env
+
