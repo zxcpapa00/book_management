@@ -21,18 +21,15 @@ class BookCreateAPIVIew(generics.CreateAPIView):
     """Создание книги"""
     serializer_class = BookSerializer
     queryset = Book.objects.all()
-    permission_classes = [AllowAny]
 
 
 class BookUpdateAPIView(generics.RetrieveUpdateAPIView):
     """Обновление данных о книге"""
     serializer_class = BookSerializer
     queryset = Book.objects.all()
-    permission_classes = [AllowAny]
 
 
 class BookDeleteAPIView(generics.RetrieveDestroyAPIView):
     """Удаление книги"""
     serializer_class = BookSerializer
     queryset = Book.objects.all()
-    permission_classes = [AllowAny]
