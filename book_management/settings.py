@@ -1,5 +1,7 @@
 from pathlib import Path
 import os
+
+import rest_framework.permissions
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -118,3 +120,10 @@ EMAIL_PORT = str(os.getenv('EMAIL_PORT'))
 
 # Celery settings
 CELERY_BROKER_URL = str(os.getenv('CELERY_BROKER_URL'))
+
+# RestFramework
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly'
+    ]
+}
