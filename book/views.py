@@ -1,5 +1,4 @@
 from rest_framework import generics
-from rest_framework.permissions import AllowAny
 
 from book.models import Book
 from book.serializers import BookSerializer
@@ -17,7 +16,7 @@ class BookDetailAPIView(generics.RetrieveAPIView):
     queryset = Book.objects.all()
 
 
-class BookCreateAPIVIew(generics.CreateAPIView):
+class BookCreateAPIView(generics.CreateAPIView):
     """Создание книги"""
     serializer_class = BookSerializer
     queryset = Book.objects.all()

@@ -1,18 +1,16 @@
 from pathlib import Path
 import os
-
-import rest_framework.permissions
 from dotenv import load_dotenv
 
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = str(os.getenv('SECRET_KEY'))
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
-DEBUG = str(os.getenv('DEBUG'))
+DEBUG = os.environ.get('DEBUG')
 
-ALLOWED_HOSTS = str(os.getenv('ALLOWED_HOSTS')).split()
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(" ")
 
 # Application definition
 INSTALLED_APPS = [
@@ -66,12 +64,12 @@ WSGI_APPLICATION = 'book_management.wsgi.application'
 # Database
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': str(os.getenv('NAME_DB')),
-        'USER': str(os.getenv('USER_DB')),
-        'PASSWORD': str(os.getenv('PASSWORD_DB')),
-        'HOST': str(os.getenv('HOST_DB')),
-        'PORT': int(os.getenv('PORT_DB')),
+        'ENGINE': os.environ.get('SQL_ENGINE'),
+        'NAME': os.environ.get('SQL_DATABASE'),
+        'USER': os.environ.get('SQL_USER'),
+        'PASSWORD': os.environ.get('SQL_PASSWORD'),
+        'HOST': os.environ.get('SQL_HOST'),
+        'PORT': os.environ.get('SQL_PORT'),
     }
 }
 
@@ -92,7 +90,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Internationalization
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
 
@@ -100,7 +98,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
+# Static files
 STATIC_URL = 'static/'
 
 # Default primary key field type
@@ -112,18 +110,11 @@ AUTH_USER_MODEL = 'accounts.User'
 # Smtp settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-EMAIL_USE_SSL = str(os.getenv('EMAIL_USE_SSL'))
-EMAIL_HOST = str(os.getenv('EMAIL_HOST'))
-EMAIL_HOST_USER = str(os.getenv('EMAIL_HOST_USER'))
-EMAIL_HOST_PASSWORD = str(os.getenv('EMAIL_HOST_PASSWORD'))
-EMAIL_PORT = str(os.getenv('EMAIL_PORT'))
+EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL')
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = os.environ.get('EMAIL_PORT')
 
 # Celery settings
-CELERY_BROKER_URL = str(os.getenv('CELERY_BROKER_URL'))
-
-# RestFramework
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly'
-    ]
-}
+CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
