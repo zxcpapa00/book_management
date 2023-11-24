@@ -8,6 +8,7 @@ user_model = get_user_model()
 
 
 class RegistrationUserAPIView(generics.CreateAPIView):
+    """Регистрация пользователя"""
     serializer_class = UserSerializer
     queryset = user_model.objects.all()
 
